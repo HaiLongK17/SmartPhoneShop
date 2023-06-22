@@ -1,0 +1,355 @@
+﻿@model HomeViewModel
+@using SmartPhone_Shop.ViewModels.Catalog.Products;
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+}
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style type="text/css">
+    .carousel-inner {
+        width: 1175px;
+        height: 300px;
+    }
+    .carousel-control  {
+        text-shadow: none;
+        width: 20px;
+        bottom: 10px;
+        background-color: transparent;
+    }
+</style>
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- banner -->
+          <div id="my-pics" class="carousel slide" data-ride="carousel" >
+
+<!-- Indicators -->
+<ol class="carousel-indicators">
+<li data-target="#my-pics" data-slide-to="0" class="active"></li>
+<li data-target="#my-pics" data-slide-to="1" class="active"></li>
+<li data-target="#my-pics" data-slide-to="2" class="active"></li>
+<li data-target="#my-pics" data-slide-to="3" class="active"></li>
+<li data-target="#my-pics" data-slide-to="4" class="active"></li>
+<li data-target="#my-pics" data-slide-to="5" class="active"></li>
+</ol>
+
+<!-- Content -->
+<div class="carousel-inner" role="listbox">
+
+<!-- Slide 1 -->
+<div class="item active">
+<img src="https://images.fpt.shop/unsafe/fit-in/1200x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/5/31/638211682455376776_F-C1_1200x300Iphone13.png" alt="">
+</div>
+
+<!-- Slide 2 -->
+<div class="item">
+<img src="https://images.fpt.shop/unsafe/fit-in/1200x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/5/6/638189646721602303_F-C1_1200x300@2x.png" alt="">
+</div>
+
+<!-- Slide 3 -->
+<div class="item">
+<img src="https://images.fpt.shop/unsafe/fit-in/1200x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/5/31/638211689980300723_F-C1_1200x300a34.png" alt="">
+</div>
+
+<!-- Slide 4 -->
+<div class="item active">
+<img src="https://images.fpt.shop/unsafe/fit-in/1200x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/5/6/638189836766576287_F-C1_1200x300.png" alt="">
+</div>
+
+<!-- Slide 5 -->
+<div class="item">
+<img src="https://images.fpt.shop/unsafe/fit-in/1200x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/5/6/638189624752664820_F-C1_1200x300.png" alt="">
+</div>
+
+<!-- Slide 6 -->
+<div class="item">
+<img src="https://images.fpt.shop/unsafe/fit-in/1200x300/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/5/29/638209672779901560_F-C1_1200x300.png" alt="">
+</div>
+
+</div>
+
+<!-- Previous/Next controls -->
+<a class="left carousel-control" href="#my-pics" role="button" data-slide="prev" style="background-color:transparent">
+<span class="icon-prev" aria-hidden="true"></span>
+<span class="sr-only">Previous</span>
+</a>
+<a class="right carousel-control" href="#my-pics" role="button" data-slide="next">
+<span class="icon-next" aria-hidden="true"></span>
+<span class="sr-only">Next</span>
+</a>
+
+        </div>
+            <!-- /banner -->
+        
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <style>
+                .section-title .title {
+                    background-image: linear-gradient(120deg, #ff9c00 0%, #ec1f1f 50%, #ff9c00 100%);
+                    line-height: 1.5em;
+                    font-size: 1.5em;
+                    text-align: center;
+                    margin: 0 auto;
+                    border-radius: 1em;
+                    color: white;
+                    transform: translateY(-0.75em);
+                    display: flow-root;
+                }
+            </style>
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h3 class="title">Sản phẩm mới</h3>
+                    <div class="section-nav">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /section title -->
+            <!-- Products tab & slick -->
+             <style>
+                    .khungdo{
+                        @* margin-right: -15px; *@
+                        @* margin-left: -15px; *@
+                        width: 100%;
+                        @* margin: 50px 0; *@
+                        padding-left: 20px;
+                        border-radius: 5px;
+                        box-sizing: border-box;
+                        border: 2px solid #ff4d00;
+                    }
+                </style>
+            <div class="col-md-12">
+                <div class="row khungdo">
+                    <div class="products-tabs1">
+                        <!-- tab -->
+                        <div id="tab1" class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                <!-- product -->
+                                @foreach (var item in Model.LatestProducts)
+                                {
+                                    var url = $"/{culture}/{_loc["productUrl"]}/{item.Id}";
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <a style="height:214px;" href="@url">
+                                                <img style="margin-left:auto;margin-right:auto;display:block" height="214" src="@(Configuration["BaseAddress"] + item.ThumbnailImage)" alt="@item.Name">
+                                            </a>
+                                            <div class="product-label">
+                                                @if (item.Stock <= 0)
+                                                {
+                                                    <span class="sale">Hết hàng</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new">Mới</span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="product-body">
+                                            @* <p class="product-category">@item.Category.Name</p> *@
+                                            <h3 class="product-name"><a href="#">@item.Name</a></h3>
+                                            <h4 class="product-price">@item.Price.ToString("N0") <span>&#8363;</span></h4>
+                                        </div>
+                                        @if (item.Stock <= 0)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            <div class="add-to-cart">
+                                                <button class="add-to-cart-btn" data-id="@item.Id"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+                                <!-- /product -->
+                            </div>
+                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+            <!-- Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- HOT DEAL SECTION -->
+<div id="hot-deal" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hot-deal">
+                    <ul class="hot-deal-countdown">
+                        <li>
+                            <div>
+                                <h3>02</h3>
+                                <span>Ngày</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>10</h3>
+                                <span>Tiếng</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>34</h3>
+                                <span>Phút</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <h3>60</h3>
+                                <span>Giây</span>
+                            </div>
+                        </li>
+                    </ul>
+                    <h2 class="text-uppercase">Ưu đãi hot tuần này</h2>
+                    <p>Giảm lên đến 50%</p>
+                    <a class="primary-btn cta-btn" href="#">Mua ngay</a>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /HOT DEAL SECTION -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <style>
+                .section-title1 .title {
+                    background-image: linear-gradient(120deg,#5de272 0%, #001a70 50%, #5de272 100%);
+                    line-height: 1.5em;
+                    font-size: 1.5em;
+                    text-align: center;
+                    margin: 0 auto;
+                    border-radius: 1em;
+                    color: white;
+                    transform: translateY(-0.75em);
+}
+            </style>
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title1">
+                    <h3 class="title">Bán chạy</h3>
+                    <div class="section-nav">                       
+                    </div>
+                </div>
+            </div>
+            <!-- /section title -->
+            <!-- Products tab & slick -->
+            <div class="col-md-12">
+                @* <style>
+                    .row{
+                        margin-right: -15px;
+                        margin-left: -15px;
+                        width: 100%;
+                        margin: 50px 0;
+                        border-radius: 5px;
+                        box-sizing: border-box;
+                        &:last-child {
+                            border: 2px solid #ff4d00;
+                        }                   
+                    }
+                </style> *@
+                <style>
+                    .khungxanh{
+                        @* margin-right: -15px; *@
+                        @* margin-left: -15px; *@
+                        width: 100%;
+                        @* margin: 50px 0; *@
+                        padding-left: 20px;
+                        border-radius: 5px;
+                        box-sizing: border-box;
+                        border: 2px solid #001a70;
+                    }
+                </style>
+                
+                <div class="row khungxanh">
+                    <div class="products-tabs2">
+                        <!-- tab -->
+                        <div id="tab1" class="tab-pane active">
+                            <div class="products-slick" data-nav="#slick-nav-1">
+                                <!-- product -->
+                                @foreach (var item in Model.LatestProducts)
+                                {
+                                    var url = $"/{culture}/{_loc["productUrl"]}/{item.Id}";
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <a style="height:214px;" href="@url">
+                                                <img style="margin-left:auto;margin-right:auto;display:block" height="214" src="@(Configuration["BaseAddress"] + item.ThumbnailImage)" alt="@item.Name">
+                                            </a>
+                                            <div class="product-label">
+                                                @if (item.Stock == 0)
+                                                {
+                                                    <span class="sale">Hết hàng</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="new">Mới</span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="product-body">
+                                            @* <p class="product-category">@item.Category.Name</p> *@
+                                            <h3 class="product-name"><a href="#">@item.Name</a></h3>
+                                            <h4 class="product-price">@item.Price.ToString("N0") <span>&#8363;</span></h4>
+                                        </div>
+                                        @if (item.Stock == 0)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            <div class="add-to-cart">
+                                                <button class="add-to-cart-btn" data-id="@item.Id"><i class="fa fa-shopping-cart"></i> thêm vào giỏ hàng</button>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+                                <!-- /product -->
+                            </div>
+                            <div id="slick-nav-1" class="products-slick-nav"></div>
+                        </div>
+                        <!-- /tab -->
+                    </div>
+                </div>
+            </div>
+            <!-- /Products tab & slick -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
